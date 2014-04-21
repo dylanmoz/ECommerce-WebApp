@@ -17,7 +17,7 @@
 	<%
 		boolean signUpAttempt = false;
 		boolean signUpSuccess = false;
-		String accountCreation = (String) request.getAttribute("accountCreation");
+		String accountCreation = (String) request.getParameter("accountCreation");
 		System.out.println("/login, accountCreation = " + accountCreation);
 		if (accountCreation != null) {
 			signUpAttempt = true;
@@ -26,13 +26,13 @@
 			}
 		}
 		
-		String loginError = (String) request.getAttribute("error");
+		String loginError = (String) request.getParameter("error");
 	%>
 
 	<jsp:include page="/Views/Partials/navbar.jsp"></jsp:include>
 
 	<div class="container" ng-app="login" ng-controller="LoginCtrl">
-		<div style="margin-top: 10%;">
+		<div>
 			<div class="row">
 				<%
 					if (signUpAttempt && signUpSuccess) {

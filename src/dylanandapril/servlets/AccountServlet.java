@@ -34,7 +34,7 @@ public class AccountServlet extends HttpServlet {
 			if(request.getSession() != null) {
 				request.getSession().invalidate();
 			}
-			request.getRequestDispatcher("/login").forward(request, response);
+			response.sendRedirect(request.getContextPath()+"/login");
 			return;
 		}
 		HttpSession session = null;
@@ -42,8 +42,9 @@ public class AccountServlet extends HttpServlet {
 		String form = request.getParameter("form");
 		String username = request.getParameter("username");
 		if(username == null) {
-			request.setAttribute("error", "Invalid login");
-			request.getRequestDispatcher("/login").forward(request, response);
+			//request.setAttribute("error", "Invalid login");
+			//request.getRequestDispatcher("/login").forward(request, response);
+			response.sendRedirect(request.getContextPath()+"/login?error=true");
 			return;
 		}
 		User u = User.findUserByName(username);
@@ -51,11 +52,12 @@ public class AccountServlet extends HttpServlet {
 		if(form != null && form.equals("login") && u != null) {
 			session = request.getSession(true);
 			session.setAttribute("user", u);
-			request.getRequestDispatcher("/main").forward(request, response);
+			response.sendRedirect(request.getContextPath()+"/main");
 			return;
 		} else {
-			request.setAttribute("error", "Invalid login");
-			request.getRequestDispatcher("/login").forward(request, response);
+			//request.setAttribute("error", "Invalid login");
+			response.sendRedirect(request.getContextPath()+"/login?error=true");
+			//request.getRequestDispatcher("/login").forward(request, response);
 			return;
 		}
 	}
@@ -89,13 +91,11 @@ public class AccountServlet extends HttpServlet {
 			
 			if(id == -1) {
 				System.out.println("AccountServlet--User creation NOT successful, fowarding to /login");
-				request.setAttribute("accountCreation", "Unable to create account. Please try a different username");
-				request.getRequestDispatcher("/login").forward(request, response);
+				response.sendRedirect(request.getContextPath()+"/login?accountCreation=false");
 				return;
 			} else {
 				System.out.println("AccountServlet--User creation successful, forwarding to /login");
-				request.setAttribute("accountCreation", "success");
-				request.getRequestDispatcher("/login").forward(request, response);
+				response.sendRedirect(request.getContextPath()+"/login?accountCreation=success");
 				return;
 			}
 

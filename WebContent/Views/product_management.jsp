@@ -3,12 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<c:set var="url">${pageContext.request.requestURL}</c:set>
-<base
-	href="${fn:substring(url, 0, fn:length(url) - fn:length(pageContext.request.requestURI))}${pageContext.request.contextPath}/" />
-<link rel="stylesheet" href="scripts/ThirdParty/bootstrap.min.css" />
+<jsp:include page="/Views/Partials/header.jsp"></jsp:include>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Product Management</title>
 </head>
@@ -19,6 +14,55 @@
 	<div class="container">
 		<div class="page-header">
 		  <h1>Product Management</h1>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<button type="button" class="btn btn-primary">Add Product</button>
+			</div>
+			<div class="col-md-3"></div>
+			<div class="col-md-3">
+				<div class="input-group input-group-md">
+				  <!-- <span class="input-group-addon">@</span> -->
+				  <input style="border-radius: 4px" type="search" class="form-control" placeholder="Search">
+				</div>
+			</div>
+		</div>
+		<div class="row" style="text-align:center; padding-left: 15px; padding-right:15px">
+			<div class="col-md-12 well" style="margin-top: 20px">
+				<div class="row">
+					<div class="col-md-4">
+						test
+					</div>
+					<div class="col-md-4">
+						test
+					</div>
+					<div class="col-md-4">
+						test
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4">
+						test
+					</div>
+					<div class="col-md-4">
+						test
+					</div>
+					<div class="col-md-4">
+						test
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4">
+						test
+					</div>
+					<div class="col-md-4">
+						test
+					</div>
+					<div class="col-md-4">
+						test
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 	<jsp:include page="/Views/Partials/footer.html"></jsp:include>

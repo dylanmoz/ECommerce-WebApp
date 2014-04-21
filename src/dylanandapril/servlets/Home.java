@@ -33,11 +33,11 @@ public class Home extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		if(session == null || session.getAttribute("user") == null) {
 			System.out.println("/home -- Session is null or user does not exist in session. Forwarding to /login");
-			request.getRequestDispatcher("/login").forward(request, response);
+			response.sendRedirect(request.getContextPath()+"/login");
 			return;
 		} else {
 			System.out.println("/home -- Session exists. Fowarding to /main");
-			request.getRequestDispatcher("/main").forward(request, response);
+			response.sendRedirect(request.getContextPath()+"/main");
 			return;
 		}
 	}

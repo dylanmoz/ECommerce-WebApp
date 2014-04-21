@@ -1,6 +1,6 @@
 CREATE TABLE account (
   id            SERIAL PRIMARY KEY,
-  username      TEXT,
+  username      TEXT UNIQUE,
   role          TEXT,
   age           INTEGER,
   state         TEXT
@@ -8,7 +8,7 @@ CREATE TABLE account (
 
 CREATE TABLE category (
   id            SERIAL PRIMARY KEY,
-  name          TEXT,
+  name          TEXT UNIQUE,
   description   TEXT
 );
 
@@ -16,7 +16,7 @@ CREATE TABLE product (
   id            SERIAL PRIMARY KEY,
   name          TEXT,
   category      INTEGER REFERENCES category (id) NOT NULL,
-  sku           TEXT,
+  sku           TEXT UNIQUE,
   price         FLOAT
 );
 

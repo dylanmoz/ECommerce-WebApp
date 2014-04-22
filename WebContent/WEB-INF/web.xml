@@ -53,20 +53,13 @@
     <url-pattern>/customer/confirmation</url-pattern>
   </servlet-mapping>
   <servlet>
-    <servlet-name>product_management</servlet-name>
-    <jsp-file>/Views/product_management.jsp</jsp-file>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>product_management</servlet-name>
-    <url-pattern>/owner/product_management</url-pattern>
-  </servlet-mapping>
-  <servlet>
     <servlet-name>products</servlet-name>
     <jsp-file>/Views/products.jsp</jsp-file>
   </servlet>
   <servlet-mapping>
     <servlet-name>products</servlet-name>
     <url-pattern>/customer/products</url-pattern>
+    <url-pattern>/owner/product_management</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>shopping_cart</servlet-name>

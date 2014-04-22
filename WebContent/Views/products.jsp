@@ -11,7 +11,7 @@
 
 	<jsp:include page="/Views/Partials/navbar.jsp"></jsp:include>
 
-	<div class="container">
+	<div class="container" ng-app="products" ng-controller="CustomerCtrl">
 		<div class="page-header">
 		  <h1>Products</h1>
 		</div>
@@ -25,14 +25,14 @@
 				</div>
 			</div>
 		</div>
-		<div class="row">
+		<div class="row" style="padding-left:15px;padding-right:15px">
 			<div class="col-md-2 sidebar">
 				<ul class="nav nav-sidebar">
 					<li class="active">
 						<a href="#">Test</a>
 					</li>
 					<li>
-						<a href="#">Category</a>
+						<a href="#">Product</a>
 					</li>
 					<li>
 						<a href="#">Sidebar</a>
@@ -49,6 +49,6 @@
 	</div>
 	<jsp:include page="/Views/Partials/footer.html"></jsp:include>
 	<jsp:include page="/Views/Partials/javascript.jsp"></jsp:include>
-	<!-- <script type="text/javascript" src="scripts/EXTRA_JS"></script> -->
+	<script type="text/javascript" src="scripts/products.js"></script>
 </body>
 </html>

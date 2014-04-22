@@ -3,4 +3,5 @@
 <c:set var="url">${pageContext.request.requestURL}</c:set>
 <base href="${fn:substring(url, 0, fn:length(url) - fn:length(pageContext.request.requestURI))}${pageContext.request.contextPath}/" />
 <link rel="stylesheet" href="scripts/ThirdParty/bootstrap.min.css" />
+<link rel="stylesheet" href="scripts/ThirdParty/angular-motion.css" />
 <link rel="stylesheet" href="styles/main.css" />

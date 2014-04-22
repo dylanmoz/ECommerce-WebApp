@@ -65,8 +65,7 @@ public class User {
         try {
             conn = DBConnection.getConnection();
 
-            // Create the prepared statement and use it to
-            // INSERT student values INTO the students table.
+            // Find user by their unique username.
             pstmt = conn.prepareStatement("SELECT * FROM account WHERE username = ?");
             pstmt.setString(1, username);
             rs = pstmt.executeQuery();
@@ -128,7 +127,7 @@ public class User {
             conn.setAutoCommit(false);
 
             // Create the prepared statement and use it to
-            // INSERT student values INTO the students table.
+            // INSERT user values INTO the students table.
             pstmt = conn
             .prepareStatement("INSERT INTO account (username, role, age, state) VALUES (?, ?, ?, ?)", 
             		Statement.RETURN_GENERATED_KEYS);

@@ -76,4 +76,20 @@
     <servlet-name>shopping_cart</servlet-name>
     <url-pattern>/customer/shopping_cart</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>product_servlet</servlet-name>
+    <servlet-class>dylanandapril.servlets.ProductServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>product_servlet</servlet-name>
+    <url-pattern>/products</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>category_servlet</servlet-name>
+    <servlet-class>dylanandapril.servlets.CategoryServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>category_servlet</servlet-name>
+    <url-pattern>/categories</url-pattern>
+  </servlet-mapping>
 </web-app>

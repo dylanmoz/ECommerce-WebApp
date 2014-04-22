@@ -239,6 +239,7 @@ public class CategoryServlet extends HttpServlet {
         jg.writeStartObject();
         	jg.writeNumberField("id", id);
         jg.writeEndObject();
+        jg.close();
 	}
 
 }

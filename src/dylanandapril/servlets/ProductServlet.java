@@ -59,11 +59,13 @@ public class ProductServlet extends HttpServlet {
             jg.writeStartObject();
 	        	jg.writeArrayFieldStart("products");
 	        	while(rs.next()) {
-	        		jg.writeNumberField("id", rs.getLong("id"));
-	        		jg.writeStringField("name", rs.getString("name"));
-	        		jg.writeStringField("category", rs.getString("categoryname"));
-	        		jg.writeStringField("sku", rs.getString("sku"));
-	        		jg.writeNumberField("price", rs.getDouble("price"));
+	        		jg.writeStartObject();
+		        		jg.writeNumberField("id", rs.getLong("id"));
+		        		jg.writeStringField("name", rs.getString("name"));
+		        		jg.writeStringField("category", rs.getString("categoryname"));
+		        		jg.writeStringField("sku", rs.getString("sku"));
+		        		jg.writeNumberField("price", rs.getDouble("price"));
+	        		jg.writeEndObject();
 	            }
 	        	jg.writeEndArray();
 	        jg.writeEndObject();
@@ -219,6 +221,10 @@ public class ProductServlet extends HttpServlet {
                 conn = null;
             }
         }
+        jg.writeStartObject();
+    	jg.writeNumberField("id", id);
+    	jg.writeEndObject();
+    	jg.close();
 	}
 
 }

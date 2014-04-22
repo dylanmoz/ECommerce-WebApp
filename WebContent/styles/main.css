@@ -27,3 +27,10 @@
   background-color: #428bca;
 }
 
+.product-display .form-group {
+	margin-left: 0px;
+}
+
+.centertext {
+	text-align: center;
+}

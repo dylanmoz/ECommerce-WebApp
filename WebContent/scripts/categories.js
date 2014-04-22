@@ -1,5 +1,5 @@
 angular.module('categories', ['ngAnimate', 'ngSanitize', 'mgcrea.ngStrap'])
-.controller('CategoryCtrl', ['$scope', '$http', '$log', 'categoryHttp',
+/*.controller('CategoryCtrl', ['$scope', '$http', '$log', 'categoryHttp',
 function($scope, $http, $log, categoryHttp){
 	
 	$http({method: 'GET', url: 'products'})
@@ -11,7 +11,7 @@ function($scope, $http, $log, categoryHttp){
 		
 	});
 
-}])
+}])*/
 .controller('CategoryMgmtCtrl', ['$scope', '$http', '$log', '$modal', 'categoryHttp',
 function($scope, $http, $log, $modal, categoryHttp){
 	$log.debug("CategoryMgmtCtrl");
@@ -50,7 +50,7 @@ function($scope, $http, $log, $modal, categoryHttp){
 		cat.showUpdateForm = true;
 		cat.tempName = cat.name;
 		cat.tempDescription = cat.description;
-	}
+	};
 	
 	$scope.updateCategory = function(cat) {
 		cat.showUpdateForm = false;
@@ -58,6 +58,9 @@ function($scope, $http, $log, $modal, categoryHttp){
 		cat.description = cat.tempDescription;
 		categoryHttp.postToServer('UPDATE', cat)
 		.success(function(data) {
+			
+		})
+		.error(function(data) {
 			
 		});
 	};

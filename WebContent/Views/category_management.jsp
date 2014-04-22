@@ -24,41 +24,41 @@
 			<div class="col-md-3">
 				<div class="input-group input-group-lg">
 				  <!-- <span class="input-group-addon">@</span> -->
-				  <input style="border-radius: 4px" type="search" ng-model="search" class="form-control" placeholder="Search">
+				  <input style="border-radius: 4px" type="search" ng-model="search" class="form-control" placeholder="Search Categories">
 				</div>
 			</div>
 		</div>
 		<div class="row" style="padding-left:15px;padding-right:15px; margin-top: 20px">
-			<div class="col-md-12 well" style="margin-top: 20px">
-					<div class="col-md-4" ng-repeat="category in categories | filter:search" style="margin-bottom: 60px">
-						<div class="panel panel-primary">
-							<div class="panel-heading">
-							    <h3 class="panel-title">{{category.name}}</h3>
-							</div>
-						  	<div class="panel-body">
-						    	<p ng-show="!category.showUpdateForm">{{category.description ? category.description : 'No description.'}}</p>
-						    	<div ng-show="category.showUpdateForm">
-						    		<form>
-						    			<div class="form-group">
-											<label for="name" >Name</label> 
-											<input ng-model="category.tempName" class="form-control" placeholder="Enter name">
-										</div>
-										<div class="form-group">
-											<label>Description</label>
-											<textarea ng-model="category.tempDescription" class="form-control" rows="3"></textarea>
-										</div>
-										<button class="btn btn-sm btn-success" ng-click="updateCategory(category)">Save</button>
-										<button class="btn btn-sm btn-default" ng-click="category.showUpdateForm = false">Cancel</button>
-						    		</form>
-						    	</div>
-						  	</div>
-						  	<div class="panel-footer">
-						  		<button class="btn btn-primary" style="left:5px;" ng-click="showUpdateForm(category)">Update</button>
-						  		<button class="btn btn-danger" style="position:absolute;right:30px" 
-						  			ng-if="!category.hasProducts" ng-click="deleteCategory(category)">Delete Category</button>
-						  	</div>
+			<div class="col-md-12 well" style="margin-top: 20px; min-height: 250px">
+				<div class="col-md-4" ng-repeat="category in categories | filter:search" style="margin-bottom: 60px">
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+						    <h3 class="panel-title">{{category.name}}</h3>
 						</div>
+					  	<div class="panel-body">
+					    	<p ng-show="!category.showUpdateForm">{{category.description ? category.description : 'No description.'}}</p>
+					    	<div ng-show="category.showUpdateForm">
+					    		<form>
+					    			<div class="form-group">
+										<label for="name" >Name</label> 
+										<input ng-model="category.tempName" class="form-control" placeholder="Enter name">
+									</div>
+									<div class="form-group">
+										<label>Description</label>
+										<textarea ng-model="category.tempDescription" class="form-control" rows="3"></textarea>
+									</div>
+									<button class="btn btn-sm btn-success" ng-click="updateCategory(category)">Save</button>
+									<button class="btn btn-sm btn-default" ng-click="category.showUpdateForm = false">Cancel</button>
+					    		</form>
+					    	</div>
+					  	</div>
+					  	<div class="panel-footer">
+					  		<button class="btn btn-primary" style="left:5px;" ng-click="showUpdateForm(category)">Update</button>
+					  		<button class="btn btn-danger" style="position:absolute;right:30px" 
+					  			ng-if="!category.hasProducts" ng-click="deleteCategory(category)">Delete Category</button>
+					  	</div>
 					</div>
+				</div>
 			</div>
 		</div>
 	</div>

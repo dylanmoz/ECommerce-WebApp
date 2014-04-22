@@ -1,0 +1,41 @@
+<div class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" ng-show="title">
+        <button type="button" class="close" ng-click="$hide()">&times;</button>
+        <h4 class="modal-title" ng-bind="title"></h4>
+      </div>
+      <div class="modal-body">
+      	<form role="form" novalidate>
+			<div class="form-group" ng-class="{'has-error': nameError}">
+				<label>Name</label> 
+				<input ng-model="newName" class="form-control" placeholder="Enter name">
+				<p ng-show="nameError" class="help-block">Name is required</p>
+			</div>
+			<div class="form-group" ng-class="{'has-error': categoryError}">
+				<label>Category</label> 
+				<select ng-model="selectedProductCategory" ng-options="c.name for c in categories" class="form-control"></select>
+				<p ng-show="categoryError" class="help-block">Product must have a category</p>
+			</div>
+			<div class="form-group" ng-class="{'has-error': skuError}">
+				<label>SKU</label> 
+				<input ng-model="newSKU" class="form-control" placeholder="Enter SKU">
+				<p ng-show="skuError" class="help-block">SKU is required</p>
+			</div>
+			<div class="form-group" ng-class="{'has-error': priceError}">
+				<label>Name</label> 
+				<div class="input-group">
+					<span class="input-group-addon">$</span>
+					<input ng-model="newPrice" class="form-control" placeholder="Enter price">
+				</div>
+				<p ng-show="priceError" class="help-block">Price is required and must be a number.</p>
+			</div>
+		</form>
+      </div>
+      <div class="modal-footer">
+      	<button type="button" class="btn btn-success" ng-click="submitNewProduct(newName, selectedProductCategory, newSKU, newPrice)">Add Category</button>
+        <button type="button" class="btn btn-default" ng-click="$hide()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

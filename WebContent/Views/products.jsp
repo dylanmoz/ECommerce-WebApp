@@ -110,7 +110,7 @@
 					  		<% if(role.equals("owner")) { %>
 					  		<button class="btn btn-primary" style="left:5px;" ng-click="showUpdateForm(product)">Update</button>
 					  		<button class="btn btn-danger" style="position:absolute;right:30px" ng-click="deleteProduct(product)">
-					  			Delete Category
+					  			Delete Product
 					  		</button>
 					  		<% } else if(role.equals("customer")) { %>
 					  		<button class="btn btn-success" >Add to Shopping Cart</button>

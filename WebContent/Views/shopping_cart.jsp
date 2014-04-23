@@ -20,10 +20,12 @@
 		<div class="page-header">
 		  <h1>Shopping Cart</h1>
 		</div>
-		{{CONTENT}}
+		<div class="col-md-10 col-md-offset-2">
+			
+		</div>
 	</div>
 	<jsp:include page="/Views/Partials/footer.html"></jsp:include>
 	<jsp:include page="/Views/Partials/javascript.jsp"></jsp:include>
-	<!-- <script type="text/javascript" src="scripts/EXTRA_JS"></script> -->
+	<script type="text/javascript" src="scripts/shopping_cart.js"></script>
 </body>
 </html>

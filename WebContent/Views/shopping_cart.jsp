@@ -16,12 +16,41 @@
 
 	<jsp:include page="/Views/Partials/navbar.jsp"></jsp:include>
 
-	<div class="container">
+	<div class="container" ng-app="shopping" ng-controller="ShoppingCtrl">
 		<div class="page-header">
 		  <h1>Shopping Cart</h1>
 		</div>
-		<div class="col-md-10 col-md-offset-2">
-			
+		<div class="col-md-8 col-md-offset-1">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Product</th>
+						<th>Price</th>
+						<th>Quantity</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="item in shoppingcart">
+						<td>{{item.product.name}}</td>
+						<td>{{item.product.price | currency}}</td>
+						<td>
+							<select ng-model="item.quantity" ng-options="num for num in quantities" class="form-control"></select>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="col-md-3">
+			<div class="thumbnail" style="position:fixed">
+				<div class="caption">
+					<h3>Total</h3>
+					<h2 style="text-align:center">{{4594.45 | currency}}</h2>
+					<div style="text-align:center">
+						<button class="btn btn-primary">Save for Later</button>
+						<button class="btn btn-success">Checkout</button>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 	<jsp:include page="/Views/Partials/footer.html"></jsp:include>

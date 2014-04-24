@@ -1,167 +1,57 @@
 angular.module('shopping', [])
-.controller('ShoppingCtrl', ['$scope', '$http', '$log',
-function($scope, $http, $log){
+.controller('ShoppingCtrl', ['$scope', '$http', '$log', 'shoppingHttp',
+function($scope, $http, $log, shoppingHttp){
 	$log.debug('ShoppingCtrl');
 	
 	$scope.shoppingcart = [];
 	
+	$http({method: 'GET', url: 'shopping'})
+	.success(function(data) {
+		$log.debug('GET shopping: ', data);
+		$scope.shoppingcart = data.items;
+	});
+	
 	$scope.quantities = [];
-	for(var i = 0; i < 101; i++) {
+	for(var i = 1; i < 101; i++) {
 		$scope.quantities.push(i);
 	}
 	
-	// Test data for display purposes
-	$scope.shoppingcart.push({
-		quantity : 2,
-		product : {
-			id: 1,
-			name: 'Laptop',
-			price: 899.99
-		}
-	});
-	$scope.shoppingcart.push({
-		quantity : 5,
-		product : {
-			id: 3,
-			name: 'TV',
-			price: 650
-		}
-	});
-	$scope.shoppingcart.push({
-		quantity : 9,
-		product : {
-			id: 7,
-			name: 'Couch',
-			price: 2999.99
-		}
-	});
-	$scope.shoppingcart.push({
-		quantity : 5,
-		product : {
-			id: 3,
-			name: 'TV',
-			price: 650
-		}
-	});
-	$scope.shoppingcart.push({
-		quantity : 9,
-		product : {
-			id: 7,
-			name: 'Couch',
-			price: 2999.99
-		}
-	});
-	$scope.shoppingcart.push({
-		quantity : 5,
-		product : {
-			id: 3,
-			name: 'TV',
-			price: 650
-		}
-	});
-	$scope.shoppingcart.push({
-		quantity : 9,
-		product : {
-			id: 7,
-			name: 'Couch',
-			price: 2999.99
-		}
-	});
-	$scope.shoppingcart.push({
-		quantity : 5,
-		product : {
-			id: 3,
-			name: 'TV',
-			price: 650
-		}
-	});
-	$scope.shoppingcart.push({
-		quantity : 9,
-		product : {
-			id: 7,
-			name: 'Couch',
-			price: 2999.99
-		}
-	});
-	$scope.shoppingcart.push({
-		quantity : 5,
-		product : {
-			id: 3,
-			name: 'TV',
-			price: 650
-		}
-	});
-	$scope.shoppingcart.push({
-		quantity : 9,
-		product : {
-			id: 7,
-			name: 'Couch',
-			price: 2999.99
-		}
-	});
-	$scope.shoppingcart.push({
-		quantity : 5,
-		product : {
-			id: 3,
-			name: 'TV',
-			price: 650
-		}
-	});
-	$scope.shoppingcart.push({
-		quantity : 9,
-		product : {
-			id: 7,
-			name: 'Couch',
-			price: 2999.99
-		}
-	});
-	$scope.shoppingcart.push({
-		quantity : 5,
-		product : {
-			id: 3,
-			name: 'TV',
-			price: 650
-		}
-	});
-	$scope.shoppingcart.push({
-		quantity : 9,
-		product : {
-			id: 7,
-			name: 'Couch',
-			price: 2999.99
-		}
-	});
-	$scope.shoppingcart.push({
-		quantity : 5,
-		product : {
-			id: 3,
-			name: 'TV',
-			price: 650
-		}
-	});
-	$scope.shoppingcart.push({
-		quantity : 9,
-		product : {
-			id: 7,
-			name: 'Couch',
-			price: 2999.99
-		}
-	});
-	$scope.shoppingcart.push({
-		quantity : 5,
-		product : {
-			id: 3,
-			name: 'TV',
-			price: 650
-		}
-	});
-	$scope.shoppingcart.push({
-		quantity : 9,
-		product : {
-			id: 7,
-			name: 'Couch',
-			price: 2999.99
-		}
-	});
+	$scope.total = function() {
+		var sum = 0;
+		angular.forEach($scope.shoppingcart, function(item, i) {
+			sum += item.quantity * item.product.price;
+		});
+		
+		return sum.toFixed(2);
+	};
 	
+	$scope.saveItem = function(item) {
+		$log.debug('saveItem(item), ', item);
+		shoppingHttp.postToServer("UPDATE", {
+			id : item.id,
+			quantity : item.quantity,
+			productId : item.product.id
+		})
+		.success(function(data) {
+			
+		});
+	};
+	
+}])
+.factory('shoppingHttp', ['$log', '$http',
+function($log, $http) {
+	
+	return {
+		postToServer : function(action, data) {
+			return $http({method: 'POST', url: 'shopping', 
+				params : {
+					action : action,
+					id : data.id,
+					quantity : data.quantity,
+					productId : data.productId,
+				}
+			});
+		}
+	};
+
 }]);

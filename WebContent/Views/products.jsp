@@ -113,7 +113,7 @@
 					  			Delete Product
 					  		</button>
 					  		<% } else if(role.equals("customer")) { %>
-					  		<button class="btn btn-success" >Add to Shopping Cart</button>
+					  		<button class="btn btn-success" ng-click="addToShoppingCart(product)">Add to Shopping Cart</button>
 					  		<% } %>
 					  	</div>
 					</div>
@@ -123,6 +123,7 @@
 	</div>
 	<jsp:include page="/Views/Partials/footer.html"></jsp:include>
 	<jsp:include page="/Views/Partials/javascript.jsp"></jsp:include>
+	<script type="text/javascript" src="scripts/shopping_cart.js"></script>
 	<script type="text/javascript" src="scripts/products.js"></script>
 </body>
 </html>

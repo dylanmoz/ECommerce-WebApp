@@ -1,6 +1,6 @@
-angular.module('products', ['ngAnimate', 'ngSanitize', 'mgcrea.ngStrap'])
-.controller('ProductCtrl', ['$scope', '$http', '$log', '$modal', '$window', 'productHttp',
-function($scope, $http, $log, $modal, $window, productHttp){
+angular.module('products', ['ngAnimate', 'ngSanitize', 'mgcrea.ngStrap', 'shopping'])
+.controller('ProductCtrl', ['$scope', '$http', '$log', '$modal', '$window', 'productHttp', 'shoppingHttp',
+function($scope, $http, $log, $modal, $window, productHttp, shoppingHttp){
 	
 	$scope.role = $window.role;
 	
@@ -126,6 +126,13 @@ function($scope, $http, $log, $modal, $window, productHttp){
 			$scope.formSuccess = true;
 			newProduct.id = data.id;
 			$scope.products.push(newProduct);
+		});
+	};
+	
+	$scope.addToShoppingCart = function(product) {
+		$log.debug('addToShoppingCart');
+		shoppingHttp.postToServer("INSERT", {
+			productId : product.id
 		});
 	};
 

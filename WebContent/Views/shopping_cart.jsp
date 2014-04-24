@@ -34,20 +34,20 @@
 						<td>{{item.product.name}}</td>
 						<td>{{item.product.price | currency}}</td>
 						<td>
-							<select ng-model="item.quantity" ng-options="num for num in quantities" class="form-control"></select>
+							<select ng-model="item.quantity" ng-change="saveItem(item)" 
+								ng-options="num for num in quantities" class="form-control"></select>
 						</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
 		<div class="col-md-3">
-			<div class="thumbnail" style="position:fixed">
+			<div class="thumbnail" style="position:fixed; min-width: 250px">
 				<div class="caption">
 					<h3>Total</h3>
-					<h2 style="text-align:center">{{4594.45 | currency}}</h2>
+					<h2 style="text-align:center">{{total() | currency}}</h2>
 					<div style="text-align:center">
-						<button class="btn btn-primary">Save for Later</button>
-						<button class="btn btn-success">Checkout</button>
+						<a href="checkout" class="btn btn-success">Checkout</a>
 					</div>
 				</div>
 			</div>

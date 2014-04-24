@@ -59,7 +59,7 @@ public class ShoppingServlet extends HttpServlet {
             pstmt = conn.prepareStatement("SELECT s.id AS cartItemId, s.quantity AS quantity, p.id AS productId, "
             		+ "p.name AS productName, p.price AS productPrice FROM shoppingcart AS s "
             		+ "JOIN product AS p ON s.product = p.id "
-            		+ "WHERE s.user = ?");
+            		+ "WHERE s.account = ?");
             pstmt.setLong(1, userId);
             
             rs = pstmt.executeQuery();
@@ -120,6 +120,8 @@ public class ShoppingServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("ShoppingServlet doPost");
+		
 		String action = request.getParameter("action");
 		String idStr = request.getParameter("id");
 		String quantityStr = request.getParameter("quantity");
@@ -183,13 +185,15 @@ public class ShoppingServlet extends HttpServlet {
                 conn.commit();
                 conn.setAutoCommit(true);
 			} else if(action.equals("INSERT")) {
+				System.out.println("Insert new shopping cart item");
+				
 				// Begin transaction
                 conn.setAutoCommit(false);
                 
                 // Create the prepared statement and use it to
                 // INSERT category values INTO the category table.
                 pstmt = conn
-                .prepareStatement("INSERT INTO shoppingcart (user, product, quantity) VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+                .prepareStatement("INSERT INTO shoppingcart (account, product, quantity) VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 
                 pstmt.setLong(1, userId);
                 pstmt.setLong(2, productId);

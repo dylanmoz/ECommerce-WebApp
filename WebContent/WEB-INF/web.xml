@@ -85,4 +85,12 @@
     <servlet-name>category_servlet</servlet-name>
     <url-pattern>/categories</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>shopping</servlet-name>
+    <servlet-class>dylanandapril.servlets.ShoppingServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>shopping</servlet-name>
+    <url-pattern>/shopping</url-pattern>
+  </servlet-mapping>
 </web-app>

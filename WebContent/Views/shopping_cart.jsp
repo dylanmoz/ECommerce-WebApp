@@ -44,11 +44,17 @@
 		<div class="col-md-3">
 			<div class="thumbnail" style="position:fixed; min-width: 250px">
 				<div class="caption">
-					<h3>Total</h3>
+					<h1 style="text-align:center">Total</h1>
 					<h2 style="text-align:center">{{total() | currency}}</h2>
-					<div style="text-align:center">
-						<a href="checkout" class="btn btn-success">Checkout</a>
-					</div>
+					<form style="margin-top: 30px;" role="form" action="customer/confirmation" method="POST" novalidate>
+						<div class="form-group">
+							<label>Credit Card</label>
+							<input name="cc" ng-model="creditCard" class="form-control" placeholder="Enter credit card number">
+						</div>
+						<div style="text-align:center" >
+							<button type="submit" class="btn btn-success">Purchase</a>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>

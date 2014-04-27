@@ -25,6 +25,14 @@
 </head>
 <body style="padding-top: 80px; padding-bottom:100px">
 
+<%
+User u = (User) request.getSession(true).getAttribute("user"); 
+if(u == null || !u.getRole().equals("customer")) {
+	response.sendRedirect(request.getContextPath()+"/login");
+	return;
+}
+%>
+
 	<jsp:include page="/Views/Partials/navbar.jsp"></jsp:include>
 
 	<%

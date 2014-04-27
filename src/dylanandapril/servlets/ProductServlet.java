@@ -41,6 +41,13 @@ public class ProductServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		User u = (User) request.getSession(true).getAttribute("user"); 
+		if(u == null) {
+			// Don't redirect, this is an AJAX servlet. Just don't send JSON data.
+			return;
+		}
+		
 		JsonFactory jf = new JsonFactory();
         JsonGenerator jg = jf.createGenerator(response.getOutputStream());
 		
@@ -109,6 +116,13 @@ public class ProductServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		User u = (User) request.getSession(true).getAttribute("user"); 
+		if(u == null) {
+			// Don't redirect, this is an AJAX servlet. Just don't send JSON data.
+			return;
+		}
+		
 		String action = request.getParameter("action");
 		String idStr = request.getParameter("id");
 		String name = request.getParameter("name");

@@ -39,9 +39,13 @@ public class ShoppingServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO : redirect if user is null.
 		
-		User u = (User)request.getSession(true).getAttribute("user");
+		User u = (User) request.getSession(true).getAttribute("user"); 
+		if(u == null || !u.getRole().equals("customer")) {
+			// Don't redirect, this is an AJAX servlet. Just don't send JSON data.
+			return;
+		}
+		
 		long userId = u.getId();
 		
 		JsonFactory jf = new JsonFactory();
@@ -122,12 +126,17 @@ public class ShoppingServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("ShoppingServlet doPost");
 		
+		User u = (User) request.getSession(true).getAttribute("user"); 
+		if(u == null || !u.getRole().equals("customer")) {
+			// Don't redirect, this is an AJAX servlet. Just don't send JSON data.
+			return;
+		}
+		
 		String action = request.getParameter("action");
 		String idStr = request.getParameter("id");
 		String quantityStr = request.getParameter("quantity");
 		String productIdStr = request.getParameter("productId");
 		
-		User u = (User)request.getSession(true).getAttribute("user");
 		long userId = u.getId();
 		
 		long id = -1;

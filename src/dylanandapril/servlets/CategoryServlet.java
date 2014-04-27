@@ -22,6 +22,7 @@ import com.fasterxml.jackson.core.JsonGenerator;
 
 import dylanandapril.database.Category;
 import dylanandapril.database.DBConnection;
+import dylanandapril.database.User;
 
 /**
  * Servlet implementation class CategoryServlet
@@ -44,6 +45,13 @@ public class CategoryServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		User u = (User) request.getSession(true).getAttribute("user"); 
+		if(u == null) {
+			// Don't redirect, this is an AJAX servlet. Just don't send JSON data.
+			return;
+		}
+
 		List<Category> categoryList = new LinkedList<Category>();
 		Set<Long> categoriesWithProducts = new HashSet<Long>();
 		
@@ -133,6 +141,13 @@ public class CategoryServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		User u = (User) request.getSession(true).getAttribute("user"); 
+		if(u == null) {
+			// Don't redirect, this is an AJAX servlet. Just don't send JSON data.
+			return;
+		}
+		
 		String action = request.getParameter("action");
 		String idStr = request.getParameter("id");
 		String name = request.getParameter("name");

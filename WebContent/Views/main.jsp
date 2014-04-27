@@ -18,7 +18,11 @@
 	<jsp:include page="/Views/Partials/navbar.jsp"></jsp:include>
 
 	<% 
-		User u = (User) request.getSession(false).getAttribute("user"); 
+		User u = (User) request.getSession(true).getAttribute("user"); 
+		if(u == null) {
+			response.sendRedirect(request.getContextPath()+"/login");
+			return;
+		}
 	%>
 	<div class="container">
 		<div class="page-header">

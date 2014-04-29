@@ -57,7 +57,6 @@ if(u == null || !u.getRole().equals("customer")) {
 	<%
 		} else {
 	
-			User u = (User)request.getSession(true).getAttribute("user");
 			long userId = u.getId();
 			
 			String ccStr = request.getParameter("cc");
@@ -126,22 +125,23 @@ if(u == null || !u.getRole().equals("customer")) {
 					</tbody>
 				</table>
 				<div style="text-align: center">
-					<button class="btn btn-primary btn-lg">Continue Shopping</button>
+					<a href="customer/products" class="btn btn-primary btn-lg">Continue Shopping</a>
 				</div>
 			</div>
 		</div>
 		<%
 		
 				conn.setAutoCommit(false);
-			
+				System.out.println("Deleting items from shopping cart...");
 			    // Create the prepared statement and use it to
 			    // DELETE students FROM the Students table.
 			    pstmt2 = conn
 			        .prepareStatement("DELETE FROM shoppingcart WHERE account = ?");
 			
 			    pstmt.setLong(1, userId);
-			    int rowCount = pstmt.executeUpdate();
-			    if(rowCount < 1) {
+			    
+			    // TODO: Need to check that the exact amount of rows were deleted.
+			    if( !pstmt.executeQuery().next() ) {
 			    	dbError = true;
 			    }
 			

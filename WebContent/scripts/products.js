@@ -8,6 +8,13 @@ function($scope, $http, $log, $modal, $window, productHttp, shoppingHttp){
 	
 	$scope.filterCategory = null;
 	
+	$scope.alerts = [];
+	
+	$scope.removeAlert = function(index) {
+		$log.debug("Remove alert at index ", index);
+		$scope.alerts.splice(index, 1);
+	};
+	
 	// Retrieve category information
 	$http({method: 'GET', url: 'categories'})
 	.success(function(data) {
@@ -51,6 +58,35 @@ function($scope, $http, $log, $modal, $window, productHttp, shoppingHttp){
 	};
 	
 	$scope.updateProduct = function(p) {
+		$scope.formSuccess = false;	
+		$scope.tempnameError = false; $scope.tempskuError = false; $scope.temppriceError = false; $scope.tempcategoryError = false;
+		if(!p.tempName) {
+			$scope.tempnameError = true;
+			return;
+		} else if(!p.tempCategory) {
+			$scope.tempcategoryError = true;
+			return;
+		} else if(!p.tempSKU) {
+			$scope.tempskuError = true;
+			return;
+		} else if(!p.tempPrice || !isFinite(String(p.tempPrice)) || parseInt(p.tempPrice) < 0) {
+			$scope.temppriceError = true;
+			return;
+		} 
+		
+		var duplicate = false;
+		angular.forEach($scope.products, function(prod, i) {
+			if(prod !== p && prod.sku === p.tempSKU) duplicate = true;
+		});
+		if(duplicate) {
+			$scope.alerts.push("Error updating product. Please make sure the SKU is unique.");
+			return;
+		}
+		
+		$log.debug('No errors in form.');
+		$scope.nameError = false; $scope.skuError = false; $scope.priceError = false; $scope.categoryError = false;
+		
+		
 		p.showUpdateForm = false;
 		p.name = p.tempName;
 		p.category = p.tempCategory.name;
@@ -100,7 +136,7 @@ function($scope, $http, $log, $modal, $window, productHttp, shoppingHttp){
 		} else if(!sku) {
 			$scope.skuError = true;
 			return;
-		} else if(!price || !isFinite(String(price))) {
+		} else if(!price || !isFinite(String(price)) || parseInt(price) < 0) {
 			$scope.priceError = true;
 			return;
 		} 

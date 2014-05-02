@@ -25,6 +25,13 @@ if(u == null || !u.getRole().equals("owner")) {
 		  <h1>Category Management</h1>
 		</div>
 		<div class="row">
+		  	<div class="alert alert-danger alert-dismissable" ng-repeat="alert in alerts">
+		  		<button type="button" ng-click="removeAlert($index)"
+		  			class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		  		<strong>Warning!</strong> {{alert}}
+			</div>
+		</div>
+		<div class="row">
 			<div class="col-md-6">
 				<button type="button" class="btn btn-lg btn-primary" 
 					data-template="Views/Partials/add_category.html" bs-modal="modal">Add Category</button>

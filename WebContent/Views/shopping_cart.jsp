@@ -61,7 +61,7 @@ if(u == null || !u.getRole().equals("customer")) {
 							<input name="cc" ng-model="creditCard" class="form-control" placeholder="Enter credit card number">
 						</div>
 						<div style="text-align:center" >
-							<button type="submit" class="btn btn-success">Purchase</a>
+							<button type="submit" ng-disabled="!creditCard" class="btn btn-success">Purchase</a>
 						</div>
 					</form>
 				</div>

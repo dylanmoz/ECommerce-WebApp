@@ -166,6 +166,8 @@ public class CategoryServlet extends HttpServlet {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
+        boolean didNotDelete = false;
+        boolean updateError = false;
         try {
         	conn = DBConnection.getConnection();
     		
@@ -185,25 +187,47 @@ public class CategoryServlet extends HttpServlet {
 	            pstmt.setString(2, description);
 	            pstmt.setLong(3, id);
 	            int rowCount = pstmt.executeUpdate();
-	
+	            System.out.print("rowCount for update: " + rowCount);
+	            if(rowCount != 1) {
+	            	updateError = true;
+	            }
 	            // Commit transaction
 	            conn.commit();
 	            conn.setAutoCommit(true);
 			} else if(action.equals("DELETE")) {
 				// Begin transaction
                 conn.setAutoCommit(false);
+                System.out.println("id of deleted category = " + id);
+                // Check if the category has no products referring to it.
+                PreparedStatement checkcat = null;
+                
+                checkcat = conn.prepareStatement("SELECT * FROM category AS c JOIN product AS p ON (c.id = p.category) WHERE c.id = ?");
+                checkcat.setLong(1, id); 
+                if(checkcat.executeQuery().next()) {
+                	didNotDelete = true;
+                } else {
+                	// Create the prepared statement and use it to
+                    // DELETE students FROM the Students table.
+                	System.out.println("ACTUALLY deleting the category...");
+                    pstmt = conn
+                        .prepareStatement("DELETE FROM category WHERE id = ?");
 
-                // Create the prepared statement and use it to
-                // DELETE students FROM the Students table.
-                pstmt = conn
-                    .prepareStatement("DELETE FROM category WHERE id = ?");
-
-                pstmt.setLong(1, id);
-                int rowCount = pstmt.executeUpdate();
+                    pstmt.setLong(1, id);
+                    int rowCount = pstmt.executeUpdate();
+                    System.out.println("rowCount = " + rowCount);
+                }
+                
 
                 // Commit transaction
                 conn.commit();
                 conn.setAutoCommit(true);
+                
+                if (checkcat != null) {
+                    try {
+                        checkcat.close();
+                    } catch (SQLException e) { } // Ignore
+                    checkcat = null;
+                }
 			} else if(action.equals("INSERT")) {
 				// Begin transaction
                 conn.setAutoCommit(false);
@@ -253,6 +277,13 @@ public class CategoryServlet extends HttpServlet {
         
         jg.writeStartObject();
         	jg.writeNumberField("id", id);
+        	if(didNotDelete) {
+        		System.out.println("Did not delete the category");
+        		jg.writeBooleanField("didNotDelete", true);
+        	}
+        	if(updateError) {
+        		jg.writeBooleanField("updateError", true);
+        	}
         jg.writeEndObject();
         jg.close();
 	}

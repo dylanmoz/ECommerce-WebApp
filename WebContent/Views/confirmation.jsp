@@ -138,13 +138,14 @@ if(u == null || !u.getRole().equals("customer")) {
 			    pstmt2 = conn
 			        .prepareStatement("DELETE FROM shoppingcart WHERE account = ?");
 			
-			    pstmt.setLong(1, userId);
-			    
+			    pstmt2.setLong(1, userId);
+			    int rowCount = pstmt2.executeUpdate();
+			    System.out.println("rowCount: " + rowCount);
 			    // TODO: Need to check that the exact amount of rows were deleted.
-			    if( !pstmt.executeQuery().next() ) {
+			    if( rowCount < 1 ) {
 			    	dbError = true;
 			    }
-			
+				System.out.println("dbError: " + dbError);
 			    // Commit transaction
 			    conn.commit();
 			    conn.setAutoCommit(true);

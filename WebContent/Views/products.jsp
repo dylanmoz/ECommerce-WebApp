@@ -7,13 +7,6 @@
 <jsp:include page="/Views/Partials/header.jsp"></jsp:include>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Products</title>
-<% String role =  ((User) request.getSession().getAttribute("user")).getRole(); %>
-<script>
-	window.role = '<%= role %>';
-</script>
-</head>
-<body style="padding-top: 80px; padding-bottom:100px">
-
 <%
 User u = (User) request.getSession(true).getAttribute("user"); 
 if(u == null) {
@@ -21,6 +14,12 @@ if(u == null) {
 	return;
 }
 %>
+<% String role =  ((User) request.getSession().getAttribute("user")).getRole(); %>
+<script>
+	window.role = '<%= role %>';
+</script>
+</head>
+<body style="padding-top: 80px; padding-bottom:100px">
 
 	<jsp:include page="/Views/Partials/navbar.jsp"></jsp:include>
 
@@ -31,6 +30,13 @@ if(u == null) {
 		  <% } else if(role.equals("customer")){ %>
 		  <h1>Browse Products</h1>
 		  <% } %>
+		</div>
+		<div class="row">
+		  	<div class="alert alert-danger alert-dismissable" ng-repeat="alert in alerts">
+		  		<button type="button" ng-click="removeAlert($index)"
+		  			class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		  		<strong>Warning!</strong> {{alert}}
+			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-6">
@@ -107,7 +113,7 @@ if(u == null) {
 											<span class="input-group-addon">$</span>
 											<input ng-model="product.tempPrice" class="form-control" placeholder="Enter price">
 										</div>
-										<p ng-show="temppriceError" class="help-block">Price is required and must be a number.</p>
+										<p ng-show="temppriceError" class="help-block">Price is required and must be a positive number.</p>
 									</div>
 									<button class="btn btn-sm btn-success" ng-click="updateProduct(product)">Save</button>
 									<button class="btn btn-sm btn-default" ng-click="product.showUpdateForm = false">Cancel</button>

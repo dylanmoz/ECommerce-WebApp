@@ -18,6 +18,8 @@ function($scope, $http, $log, $modal, categoryHttp){
 	
 	$scope.categories = [];
 	
+	$scope.alerts = [];
+	
 	$http({method: 'GET', url: 'categories'})
 	.success(function(data) {
 		$log.debug(data);
@@ -37,12 +39,16 @@ function($scope, $http, $log, $modal, categoryHttp){
 	$scope.deleteCategory = function(cat) {
 		categoryHttp.postToServer('DELETE', cat)
 		.success(function(data) {
-			angular.forEach($scope.categories, function(categ, i) {
-				if(categ.id === cat.id) {
-					$scope.categories.splice(i,1);
-					return;
-				}
-			});
+			if(data.didNotDelete) {
+				$scope.alerts.push("The category was not deleted because it has products.");
+			} else {
+				angular.forEach($scope.categories, function(categ, i) {
+					if(categ.id === cat.id) {
+						$scope.categories.splice(i,1);
+						return;
+					}
+				});
+			}
 		});
 	};
 	
@@ -53,12 +59,23 @@ function($scope, $http, $log, $modal, categoryHttp){
 	};
 	
 	$scope.updateCategory = function(cat) {
-		cat.showUpdateForm = false;
-		cat.name = cat.tempName;
-		cat.description = cat.tempDescription;
+		var duplicate = false;
+		angular.forEach($scope.categories, function(c, i) {
+			if(c !== cat && c.name === cat.tempName) duplicate = true;
+		});
+		if(duplicate) {
+			$scope.alerts.push("Error occured while updating the category. Make sure the name is not a duplicate.");
+			return;
+		}
 		categoryHttp.postToServer('UPDATE', cat)
 		.success(function(data) {
-			
+			if(!data.updateError) {
+				cat.showUpdateForm = false;
+				cat.name = cat.tempName;
+				cat.description = cat.tempDescription;
+			} else {
+				$scope.alerts.push("Error occured while updating the category. Make sure the name is not a duplicate.");
+			}
 		})
 		.error(function(data) {
 			
@@ -94,6 +111,10 @@ function($scope, $http, $log, $modal, categoryHttp){
 		});
 	};
 	
+	$scope.removeAlert = function(index) {
+		$log.debug("Remove alert at index ", index);
+		$scope.alerts.splice(index, 1);
+	};
 	
 }])
 .factory('categoryHttp', ['$log', '$http',

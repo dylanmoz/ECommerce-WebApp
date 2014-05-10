@@ -126,6 +126,7 @@ function($scope, $http, $log, $modal, $window, productHttp, shoppingHttp){
 		$log.debug('price: ', price);
 		
 		$scope.formSuccess = false;	
+		$scope.duplicateError = false;
 		$scope.nameError = false; $scope.skuError = false; $scope.priceError = false; $scope.categoryError = false;
 		if(!name) {
 			$scope.nameError = true;
@@ -140,8 +141,20 @@ function($scope, $http, $log, $modal, $window, productHttp, shoppingHttp){
 			$scope.priceError = true;
 			return;
 		} 
+		
+		var duplicate = false;
+		angular.forEach($scope.products, function(prod, i) {
+			if(prod.sku === sku) duplicate = true;
+		});
+		if(duplicate) {
+			$scope.duplicateError = true;
+			return;
+		}
+		
 		$log.debug('No errors in form.');
 		$scope.nameError = false; $scope.skuError = false; $scope.priceError = false; $scope.categoryError = false;
+		
+		
 		
 		var newProduct = {
 			name : name,

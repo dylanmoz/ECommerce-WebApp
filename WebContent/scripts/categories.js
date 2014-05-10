@@ -86,11 +86,23 @@ function($scope, $http, $log, $modal, categoryHttp){
 		$log.debug('Submitting Add Category Form...');
 		$log.debug('name: ', name);
 		$log.debug('description: ', description);
+		
+		$scope.formError = false;
+		$scope.duplicateError = false;
 		if(!name) {
 			$scope.formError = true;
 			return;
 		}
-		formError = false;
+		
+		
+		var duplicate = false;
+		angular.forEach($scope.categories, function(c, i) {
+			if(c.name === name) duplicate = true;
+		});
+		if(duplicate) {
+			$scope.duplicateError = true;
+			return;
+		}
 		
 		var newCategory = {
 			name: name,
@@ -102,7 +114,7 @@ function($scope, $http, $log, $modal, categoryHttp){
 		.success(function(data) {
 			if(data.id == -1) {
 				$log.debug('Insert failure');
-				formError = true;
+				$scope.formError = true;
 				return;
 			}
 			$log.debug('Insert success', data);

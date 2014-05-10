@@ -7,6 +7,7 @@
       </div>
       <div class="modal-body">
       	<form role="form" novalidate>
+      		<p ng-show="duplicateError" style="color:#a94442" class="help-block ">Error adding product. Check that the name is not a duplicate.</p>
 			<div class="form-group" ng-class="{'has-error': formError}">
 				<label for="name" >Name</label> 
 				<input ng-model="newCategoryName" class="form-control" placeholder="Enter name">
